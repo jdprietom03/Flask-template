@@ -28,7 +28,7 @@ class ProductsListResource(Resource):
         product = product_repository.create(Product(data))
 
         response = {
-            "message": "Producto actualizado correctamente",
+            "message": "Producto creado correctamente",
         }
 
         return make_response(json.dumps(response), 200, headers)
@@ -53,7 +53,6 @@ class ProductResource(Resource):
         response = {
             "message": "Producto actualizado correctamente",
         }
-
 
         return make_response(json.dumps(response), 200, headers)
 
