@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Products</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
+    </head>
+    <body>
+        <div>
+            <h1>Products</h1>
+            <button onclick="addProduct()">Agregar</button>
+        </div>
+        <ul>
+            {% for product in products %}
+                <li {% for key, value in product.__dict__.items() %}
+                        data-{{ key }}="{{ value }}"
+                    {% endfor %}
+                    ondblclick="showItem(this)">
+                   <div class="card-item"> 
+                        <div class="card-item__content">
+                            <h3>{{product.name}}</h3>
+                            <p>{{product.price}}</p>
+                        </div>
+                   </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-response"></div>
+            <div class="modal-content">
+                <form id = "form-product">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Vista de Producto</h2>
+                        <button class="modal-close" type="button" onclick="closeModal()">Cerrar</button>
+                    </div>
+                    <div class="form-element">
+                        <span class="label"> Product Name: </span>
+                        <div class="form-input">
+                            <span class="visible-data" name="name" ondblclick="showEditable(this)"></span>
+                            <input class="data-input" name="name" type="text" autocomplete="off" value="" disabled ondblclick="hideEditable(this)">
+                            <input type="hidden" class="is-hidden" id = "productId" name="id" value="">
+                        </div>
+                    </div>
+                    <div class="form-element">
+                        <span class="label"> Product Price: </span>
+                        <div class="form-input">
+                            <span class="visible-data" name="price" ondblclick="showEditable(this)"></span>
+                            <input class="data-input" name="price" type="number" value="" disabled ondblclick="hideEditable(this)">
+                        </div>
+                    </div>
+                    <div class="form-element">
+                        <div class="form-input">
+                            <button onclick="deleteItem()" id='delete-button' type="button" value="Eliminar">
+                                Eliminar
+                            </button>
+                            <button onclick="updateItem()" id="update-button" type="button" value="Actualizar">
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static',filename='scripts/products.js') }}"></script>
+        <script src="{{ url_for('static',filename='scripts/main.js') }}"></script>
+    </body>
+</html>

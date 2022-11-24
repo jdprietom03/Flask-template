@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Product</title>
+    </head>
+    <body>
+        <h1>Product</h1>
+        <p>Product ID: {{ product.id }}</p>
+        <p>Product Name: {{ product.name }}</p>
+        <p>Product Price: {{ product.price }}</p>
+
+        <form action="/products/{{ product.id }}" method="POST">
+            <input type="hidden" name="productID" value="{{ product.id }}">
+            <input type="submit" value="Delete">
+        </form>
+    </body>
+</html>
