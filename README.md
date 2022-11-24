@@ -2,6 +2,6 @@
 
 Escribir lo siguiente en la consola para ejecutar la aplicacion.
 
-```python
+```bash
   python3 app.py
 ```
