@@ -5,6 +5,7 @@ const showItem = (item) => {
     document.getElementById('update-button').innerText = 'Actualizar';
     document.querySelector('#form-product').method = 'PUT';
     modal.classList.add('is-active');
+    modal.classList.remove('is-hidden');
 
     
     if(!item || !item.dataset) return;
@@ -43,7 +44,9 @@ const getData = () => {
     const inputs = Array.from(form.elements); 
 
     inputs.forEach((input) => {
-        const { tagName, name, value } = input;
+        let { tagName, name, value, type } = input;
+
+        value = type === 'number' ? parseFloat(value) : value;
 
         if (tagName !== 'BUTTON' && name !== 'id') 
         {
@@ -52,6 +55,7 @@ const getData = () => {
             }else{
                 body[name] = value;
             }
+
         }
     })
 

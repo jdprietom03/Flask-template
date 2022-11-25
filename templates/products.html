@@ -5,11 +5,11 @@
         <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
     </head>
     <body>
-        <div>
+        <div class="header">
             <h1>Products</h1>
             <button onclick="addProduct()">Agregar</button>
         </div>
-        <ul>
+        <ul class="items-group">
             {% for product in products %}
                 <li {% for key, value in product.__dict__.items() %}
                         data-{{ key }}="{{ value }}"
@@ -19,13 +19,14 @@
                         <div class="card-item__content">
                             <h3>{{product.name}}</h3>
                             <p>{{product.price}}</p>
+                            <span class="card-advice">Doble clic para ver</span>
                         </div>
                    </div>
                 </li>
             {% endfor %}
         </ul>
 
-        <div class="modal">
+        <div class="modal is-hidden">
             <div class="modal-background"></div>
             <div class="modal-response"></div>
             <div class="modal-content">

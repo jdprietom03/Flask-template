@@ -9,7 +9,6 @@
 }
 
 .modal {
-    display: none;
     position: absolute;
     width: 100vw;
     height: 100vh;
@@ -172,6 +171,61 @@ input {
 .visible-data, .data-input {
     padding: 0 1rem;
     font-size: 1rem;
+}
+
+.items-group{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    list-style: none;
+}
+
+.card-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.card-item:hover{
+    background-color: #f5f5f5;
+    transform: scale(1.01);
+}
+
+.card-content{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    background-color: royalblue;
+    color: white;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.modal.is-active  .modal-content{
+    animation: modal-animation 0.5s ease-in;
+}
+
+@keyframes modal-animation {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes input-animation{

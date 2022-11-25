@@ -1,6 +1,7 @@
 
 const closeModal = () => {
     document.querySelector('.modal').classList.remove('is-active');
+    document.querySelector('.modal').classList.add('is-hidden');
 }
 
 const hideEditable = (input) => {
