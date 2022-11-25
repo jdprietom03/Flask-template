@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Localidades</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="./../">Home</a></li>
+                <li><a href="beneficios_economicos">Beneficios Social</a></li>
+                <li><a href="beneficios_infancia">Beneficios Infancia</a></li>
+                <li><a href="ciudadanos">Ciudadanos</a></li>
+                <li><a href="colegios">Colegios</a></li>
+                <li><a href="graph/beneficios">Grafico Beneficios</a></li>
+
+            </ul>
+        </nav>
+        <div class="header">
+            <h1>Localidades</h1>
+            <button onclick="addProduct()">Agregar</button>
+        </div>
+        <ul class="items-group">
+            {% for localidad in localidades %}
+                <li {% for key, value in localidad.__dict__.items() %}
+                        data-{{ key }}="{{ value }}"
+                    {% endfor %}
+                    ondblclick="showItem(this)">
+                   <div class="card-item"> 
+                        <div class="card-item__content">
+                            <h3>Id: {{localidad.Id}}</h3>
+                            <p>Cantidad colegios: {{localidad.Cantidad_colegios}}</p>
+                            <span class="card-advice">Doble clic para ver</span>
+                        </div>
+                   </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="modal is-hidden">
+            <div class="modal-background"></div>
+            <div class="modal-response"></div>
+            <div class="modal-content">
+                <form id = "form-product">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Vista de Localidad</h2>
+                        <button class="modal-close" type="button" onclick="closeModal()">Cerrar</button>
+                    </div>
+                    <div class="form-element">
+                        <span class="label"> Cantidad de colegios </span>
+                        <div class="form-input">
+                            <span class="visible-data" name="cantidad_colegios" ondblclick="showEditable(this)"></span>
+                            <input class="data-input" name="cantidad_colegios" type="number" autocomplete="off" value="" disabled ondblclick="hideEditable(this)">
+                            <input type="hidden" class="is-hidden" id = "productId" name="document_id" value="">
+                        </div>
+                    </div>
+                    <div class="form-element actions">
+                        <div class="form-input">
+                            <button onclick="deleteItem()" id='delete-button' type="button" value="Eliminar">
+                                Eliminar
+                            </button>
+                        </div>
+                        <div class="form-input">
+                            <button onclick="updateItem()" id="update-button" type="button" value="Actualizar">
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static',filename='scripts/localidades.js') }}"></script>
+        <script src="{{ url_for('static',filename='scripts/main.js') }}"></script>
+    </body>
+</html>

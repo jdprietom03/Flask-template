@@ -217,6 +217,40 @@ input {
     animation: modal-animation 0.5s ease-in;
 }
 
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: royalblue;
+    color: white;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+nav > ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+}
+
+nav > ul > li {
+    cursor: pointer;
+}
+
+nav > ul > li {
+    background-color: royalblue;
+}
+
+nav > ul > li > a:hover {
+    background-color: rgb(95, 128, 227);
+}
+
+nav > ul > li > a {
+    padding: 1rem;
+    color: white;
+    text-decoration: none;
+}
+
 @keyframes modal-animation {
     0% {
         opacity: 0;

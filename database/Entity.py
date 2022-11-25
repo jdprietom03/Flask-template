@@ -16,6 +16,7 @@ class Repository:
 
     def __init__(self):
         self.__collection = ""
+        self.db = db
 
     def __init__(self, Type, collection = ""):
         self.__collection = collection
@@ -27,7 +28,7 @@ class Repository:
         elements = []
 
         for doc in docs:
-            elements.append(self.Type(doc.to_dict(), id=doc.id))
+            elements.append(self.Type(doc.to_dict(), document_id=doc.id))
         
         return elements
 
@@ -35,20 +36,26 @@ class Repository:
         doc_ref = db.collection(self.__collection).document(id)
         doc = doc_ref.get()
         if doc.exists:
-            return self.Type(doc.to_dict(), id=doc.id)
+            return self.Type(doc.to_dict(), document_id=doc.id)
         else:
             return None
 
     def create(self, object):
         doc_ref = db.collection(self.__collection).document()
         doc_ref.set(object.__dict__)
-        return self.Type(object.__dict__, id=doc_ref.id)
+        return self.Type(object.__dict__, document_id=doc_ref.id)
 
     def update(self, object, id):
         doc_ref = db.collection(self.__collection).document(id)
         doc_ref.update(object.__dict__)
-        return self.Type(object.__dict__, id=id)
+        return self.Type(object.__dict__, document_id=id)
 
     def delete(self, id):
         doc_ref = db.collection(self.__collection).document(id)
         doc_ref.delete()
+
+    def delete_all(self):
+        docs = db.collection(self.__collection).stream()
+        for doc in docs:
+            doc.reference.delete()
+

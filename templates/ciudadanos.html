@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ciudadanos</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="./..">Home</a></li>
+                <li><a href="beneficios_economicos">Beneficios Social</a></li>
+                <li><a href="beneficios_infancia">Beneficios Infancia</a></li>
+                <li><a href="ciudadanos">Ciudadanos</a></li>
+                <li><a href="colegios">Colegios</a></li>
+                <li><a href="graph/beneficios">Grafico Beneficios</a></li>
+
+            </ul>
+        </nav>
+        <div class="header">
+            <h1>Ciudadanos</h1>
+            <button onclick="addProduct()">Agregar</button>
+        </div>
+        <ul class="items-group">
+            {% for ciudadano in ciudadanos %}
+            <form name = "form-product">
+            <li {% for key, value in ciudadano.__dict__.items() %}
+            data-{{ key }}="{{ value }}"
+            {% endfor %}
+            >
+            <div class="card-item"> 
+                        <div class="card-item__content">
+                            <h3><input type="checkbox" name="selectItem" value=""/> {{ciudadano.Di}}</h3>
+                                <div class="form-item">
+                                    <div class="form-element">
+                                        <span class="label"> Sexo </span>
+                                        <div class="form-input">
+                                            <span class="visible-data" name="sexo" ondblclick="showEditable(this)">{{ciudadano.Sexo}}</span>
+                                            <input class="data-input" name="sexo" type="text" value="{{ciudadano.Sexo}}" disabled ondblclick="hideEditable(this)">
+                                            <input type="hidden" class="is-hidden" id = "productId" name="document_id" value="{{ciudadano.document_id}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-element">
+                                        <span class="label"> Fecha Nacimiento </span>
+                                        <div class="form-input">
+                                            <span class="visible-data" name="fec_nac" ondblclick="showEditable(this)">{{ciudadano.Fec_nac}}</span>
+                                            <input class="data-input" name="fec_nac" type="text" value="{{ciudadano.Fec_nac}}" disabled ondblclick="hideEditable(this)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-element">
+                                        <span class="label"> Id localidad </span>
+                                        <div class="form-input">
+                                            <span class="visible-data" name="id_localidad" ondblclick="showEditable(this)">{{ciudadano.Localidad}}</span>
+                                            <input class="data-input" name="id_localidad" type="number" value="{{ciudadano.Localidad}}" disabled ondblclick="hideEditable(this)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-element">
+                                        <span class="label"> Id Colegio </span>
+                                        <div class="form-input">
+                                            <span class="visible-data" name="colegio" ondblclick="showEditable(this)">{{ciudadano.Colegio}}</span>
+                                            <input class="data-input" name="colegio" type="number" value="{{ciudadano.Colegio}}" disabled ondblclick="hideEditable(this)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </form>
+                    {% endfor %}
+                    <div class="form-element actions">
+                        <div class="form-input">
+                            <button onclick="deleteItem()" id='delete-button' type="button" value="Eliminar">
+                                Eliminar
+                            </button>
+                        </div>
+                        <div class="form-input">
+                            <button onclick="updateItem()" id="update-button" type="button" value="Actualizar">
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+        </ul>
+
+        <div class="modal is-hidden">
+            <div class="modal-background"></div>
+            <div class="modal-response"></div>
+            <div class="modal-content">
+                <form id = "form-product">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Vista de Ciudadano</h2>
+                        <button class="modal-close" type="button" onclick="closeModal()">Cerrar</button>
+                    </div>
+                    <div class="form-element">
+                        <span class="label"> Documento de Identidad </span>
+                        <div class="form-input">
+                            <span class="visible-data" name="di" ondblclick="showEditable(this)"></span>
+                            <input class="data-input" name="di" type="text" autocomplete="off" value="" disabled ondblclick="hideEditable(this)">
+                        </div>
+                    </div>
+                    <div class="form-element">
+                        <span class="label"> Sexo </span>
+                        <div class="form-input">
+                            <span class="visible-data" name="sexo" ondblclick="showEditable(this)"></span>
+                            <input class="data-input" name="sexo" type="text" value="" disabled ondblclick="hideEditable(this)">
+                        </div>
+                    </div>
+
+                    <div class="form-element">
+                        <span class="label"> Fecha de Nacimiento </span>
+                        <div class="form-input">
+                            <span class="visible-data" name="fec_nac" ondblclick="showEditable(this)"></span>
+                            <input class="data-input" name="fec_nac" type="text" value="" disabled ondblclick="hideEditable(this)">
+                        </div>
+                    </div>
+
+                    <div class="form-element">
+                        <span class="label"> Localidad </span>
+                        <div class="form-input">
+                            <span class="visible-data" name="localidad" ondblclick="showEditable(this)"></span>
+                            <input class="data-input" name="localidad" type="number" value="" disabled ondblclick="hideEditable(this)">
+                        </div>
+                    </div>
+
+                    <div class="form-element">
+                        <span class="label"> Colegio </span>
+                        <div class="form-input">
+                            <span class="visible-data" name="colegio" ondblclick="showEditable(this)"></span>
+                            <input class="data-input" name="colegio" type="number" value="" disabled ondblclick="hideEditable(this)">
+                        </div>
+                    </div>
+
+
+                    <div class="form-element actions">
+                        <div class="form-input">
+                            <button onclick="updateItemUnit()" id="update-button" type="button" value="Actualizar">
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static',filename='scripts/ciudadanos.js') }}"></script>
+        <script src="{{ url_for('static',filename='scripts/main.js') }}"></script>
+    </body>
+</html>

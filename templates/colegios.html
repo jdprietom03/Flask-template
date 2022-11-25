@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Colegios</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="beneficios_economicos">Beneficios Social</a></li>
+                <li><a href="beneficios_infancia">Beneficios Infancia</a></li>
+                <li><a href="ciudadanos">Ciudadanos</a></li>
+                <li><a href="colegios">Colegios</a></li>
+                <li><a href="graph/beneficios">Grafico Beneficios</a></li>
+
+            </ul>
+        </nav>
+        <div class="header">
+            <h1>Colegios</h1>
+            <button onclick="addProduct()">Agregar</button>
+        </div>
+        <ul class="items-group">
+            {% for colegio in colegios %}
+                <li {% for key, value in colegio.__dict__.items() %}
+                        data-{{ key }}="{{ value }}"
+                    {% endfor %}
+                    ondblclick="showItem(this)">
+                   <div class="card-item"> 
+                        <div class="card-item__content">
+                            <h3>Id: {{colegio.Id}}</h3>
+                            <p>Cantidad: {{colegio.Cantidad}}</p>
+                            <p>Tipo: {{colegio.Tipo}}</p>
+                            <p>Id localidad: {{colegio.Id_localidad}}</p>
+                            <span class="card-advice">Doble clic para ver</span>
+                        </div>
+                   </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="modal is-hidden">
+            <div class="modal-background"></div>
+            <div class="modal-response"></div>
+            <div class="modal-content">
+                <form id = "form-product">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Vista de Colegio</h2>
+                        <button class="modal-close" type="button" onclick="closeModal()">Cerrar</button>
+                    </div>
+                    <div class="form-element">
+                        <span class="label"> Cantidad </span>
+                        <div class="form-input">
+                            <span class="visible-data" name="cantidad" ondblclick="showEditable(this)"></span>
+                            <input class="data-input" name="cantidad" type="number" autocomplete="off" value="" disabled ondblclick="hideEditable(this)">
+                            <input type="hidden" class="is-hidden" id = "productId" name="document_id" value="">
+                        </div>
+                    </div>
+                    <div class="form-element">
+                        <span class="label"> Tipo </span>
+                        <div class="form-input">
+                            <span class="visible-data" name="tipo" ondblclick="showEditable(this)"></span>
+                            <input class="data-input" name="tipo" type="text" autocomplete="off" value="" disabled ondblclick="hideEditable(this)">
+                        </div>
+                    </div>
+
+                    <div class="form-element">
+                        <span class="label"> Id localidad </span>
+                        <div class="form-input">
+                            <span class="visible-data" name="id_localidad" ondblclick="showEditable(this)"></span>
+                            <input class="data-input" name="id_localidad" type="text" autocomplete="off" value="" disabled ondblclick="hideEditable(this)">
+                        </div>
+                    </div>
+
+                    <div class="form-element actions">
+                        <div class="form-input">
+                            <button onclick="deleteItem()" id='delete-button' type="button" value="Eliminar">
+                                Eliminar
+                            </button>
+                        </div>
+                        <div class="form-input">
+                            <button onclick="updateItem()" id="update-button" type="button" value="Actualizar">
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static',filename='scripts/colegios.js') }}"></script>
+        <script src="{{ url_for('static',filename='scripts/main.js') }}"></script>
+    </body>
+</html>

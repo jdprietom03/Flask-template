@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Beneficios Economicos: Infancia</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="./../">Home</a></li>
+                <li><a href="beneficios_economicos">Beneficios Social</a></li>
+                <li><a href="beneficios_infancia">Beneficios Infancia</a></li>
+                <li><a href="ciudadanos">Ciudadanos</a></li>
+                <li><a href="colegios">Colegios</a></li>
+                <li><a href="graph/beneficios">Grafico Beneficios</a></li>
+            </ul>
+        </nav>
+        <div class="header">
+            <h1>Beneficios Economicos: Infancia</h1>
+            <button onclick="addProduct()">Agregar</button>
+        </div>
+
+        <form id = "form-product">
+            <div class="modal-header">
+                <h2 class="modal-title">Campos de Beneficios: Programa promocion infancia</h2>
+            </div>
+            <div class="form-element">
+                <span class="label"> Cantidad de beneficios </span>
+                <div class="form-input">
+                    <span class="visible-data" name="total" ondblclick="showEditable(this)">{{ infancia.Asignados + infancia.Disponibles }}</span>
+                    <input class="data-input" name="total" type="number" autocomplete="off" value="{{ infancia.Asignados + infancia.Disponibles }}" disabled ondblclick="hideEditable(this)">
+                    <input type="hidden" class="is-hidden" id = "productId" name="document_id" value="{{infancia.document_id}}">
+                </div>
+            </div>
+
+            <div class="form-element">
+                <span class="label"> Cantidad de asignados </span>
+                <div class="form-input">
+                    <span name="asignados" ondblclick="showEditable(this)">{{ infancia.Asignados }}</span>
+                </div>
+            </div>
+
+            <div class="form-element">
+                <span class="label"> Cantidad de cupos disponibles</span>
+                <div class="form-input">
+                    <span name="" ondblclick="showEditable(this)">{{ infancia.Disponibles }}</span>
+                </div>
+            </div>
+
+            <div class="form-element actions">
+                <div class="form-input">
+                    <button onclick="updateItem()" id="update-button" type="button" value="Actualizar">
+                        Actualizar
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        Resultados: {{ size }}
+        <ul class="items-group">
+            {% for ciudadano in ciudadanos %}
+                <li {% for key, value in ciudadano.__dict__.items() %}
+                        data-{{ key }}="{{ value }}"
+                    {% endfor %}
+                    ondblclick="showItem(this)">
+                   <div class="card-item"> 
+                        <div class="card-item__content">
+                            <h3>Documento: {{ciudadano.Di}}</h3>
+                            <p>Aplica: {{ciudadano.BPPI}}</p>
+                            <span class="card-advice">Doble clic para ver</span>
+                        </div>
+                   </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <script src="{{ url_for('static',filename='scripts/beneficios_infancia.js') }}"></script>
+        <script src="{{ url_for('static',filename='scripts/main.js') }}"></script>
+    </body>
+</html>

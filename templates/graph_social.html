@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Beneficios Economicos</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="./../">Home</a></li>
+                <li><a href="./../beneficios_economicos">Beneficios Social</a></li>
+                <li><a href="./../beneficios_infancia">Beneficios Infancia</a></li>
+                <li><a href="./../ciudadanos">Ciudadanos</a></li>
+                <li><a href="./../colegios">Colegios</a></li>
+                <li><a href="#">Grafico Beneficios</a></li>
+            </ul>
+        </nav>
+        <div class="header">
+            <h1>Beneficios Economicos</h1>
+            <button onclick="addProduct()">Agregar</button>
+        </div>
+
+        <form id = "form-product">
+            <div class="modal-header">
+                <h2 class="modal-title">Campos de Beneficios: Programa promocion social</h2>
+            </div>
+            <div class="form-element">
+                <span class="label"> Cantidad de beneficios </span>
+                <div class="form-input">
+                    <span class="visible-data" name="total" ondblclick="showEditable(this)">{{ social.Asignados + social.Disponibles }}</span>
+                    <input class="data-input" name="total" type="number" autocomplete="off" value="{{ social.Asignados + social.Disponibles }}" disabled ondblclick="hideEditable(this)">
+                    <input type="hidden" class="is-hidden" id = "productId" name="document_id" value="{{social.document_id}}">
+                </div>
+            </div>
+
+            <div class="form-element">
+                <span class="label"> Cantidad de asignados </span>
+                <div class="form-input">
+                    <span name="asignados" ondblclick="showEditable(this)">{{ social.Asignados }}</span>
+                </div>
+            </div>
+
+            <div class="form-element">
+                <span class="label"> Cantidad de cupos disponibles</span>
+                <div class="form-input">
+                    <span name="" ondblclick="showEditable(this)">{{ social.Disponibles }}</span>
+                </div>
+            </div>
+
+            <div class="form-element actions">
+                <div class="form-input">
+                    <button onclick="updateItem()" id="update-button" type="button" value="Actualizar">
+                        Actualizar
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div id="pie1" width="400" height="400"></cdiv>
+        <div id="pie2" width="400" height="400"></cdiv>
+        <div id="pie3" width="400" height="400"></cdiv>
+        <div id="bar1" width="400" height="400"></cdiv>
+        <div id="bar2" width="400" height="400"></cdiv>
+        <div id="bar3" width="400" height="400"></cdiv>
+
+        <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+        <script type='text/javascript'>
+            var graphs = {{pie1 | safe}};
+            Plotly.plot('pie1',graphs,{});
+        </script>
+
+        <script type='text/javascript'>
+            var graphs = {{pie2 | safe}};
+            Plotly.plot('pie2',graphs,{});
+        </script>
+
+        <script type='text/javascript'>
+            var graphs = {{pie3 | safe}};
+            Plotly.plot('pie3',graphs,{});
+        </script>
+
+        <script type='text/javascript'>
+            var graphs = {{bar1 | safe}};
+            Plotly.plot('bar1',graphs,{});
+        </script>
+
+        <script type='text/javascript'>
+            var graphs = {{bar2 | safe}};
+            Plotly.plot('bar2',graphs,{});
+        </script>
+
+        <script type='text/javascript'>
+            var graphs = {{bar3 | safe}};
+            Plotly.plot('bar3',graphs,{});
+        </script>
+
+        <script src="{{ url_for('static',filename='scripts/beneficios_social.js') }}"></script>
+        <script src="{{ url_for('static',filename='scripts/main.js') }}"></script>
+    </body>
+</html>
